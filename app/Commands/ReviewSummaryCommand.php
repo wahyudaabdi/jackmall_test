@@ -45,8 +45,8 @@ class ReviewSummaryCommand extends Command
         }
 
         $save['average_ratings'] /= $save['total_reviews'];
-        $result = json_encode($save, JSON_PRETTY_PRINT);
-        \Cache::put('summary', $result, now()->addMinutes(10));
+        $result = collect($save)->toJson();
+        \Cache::put('summary', $result, now()->addMinutes(2));
       }
 
       $this->info(\Cache::get('summary'));
